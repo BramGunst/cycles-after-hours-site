@@ -235,6 +235,7 @@ footer nav a {
   width: 196px;
   max-width: calc(100vw - 32px);
   border: 1px solid var(--ui-border);
+  border-top: 0;
   border-radius: 0 0 5px 5px;
   background: var(--ui-menu);
   box-shadow: 0 8px 18px #20252c1a;
