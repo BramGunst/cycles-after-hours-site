@@ -269,7 +269,7 @@ footer nav a {
   color: #fff;
   text-align: center;
   background:
-    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url("assets/images/header_image.jpg") center / cover no-repeat;
 }
 
