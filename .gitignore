@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+playwright-report/
+test-results/
+*-audit-results.json
+light-final-checks.json
