@@ -321,6 +321,10 @@ main > p {
   max-width: var(--prose-width);
 }
 
+.feature-intro > h2 {
+  margin-bottom: var(--space-5);
+}
+
 .feature-emphasis {
   font-weight: 500;
 }
