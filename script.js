@@ -202,7 +202,7 @@ const axisGizmo = document.querySelector(".axis-gizmo");
 if (hero && axisGizmo) {
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const maxOrbit = 55;
-  const maxPitch = 10;
+  const maxPitch = 20;
   const settlingThreshold = 0.01;
   let lastPointer = null;
   let targetPitch = 0;
@@ -231,9 +231,19 @@ if (hero && axisGizmo) {
   ].map((axis) => ({
     ...axis,
     line: axisGizmo.querySelector(`path.${axis.className}`),
-    endpoint: axisGizmo.querySelector(`circle.${axis.className}`),
+    endpoint: axisGizmo.querySelector(`circle.${axis.className}:not(.axis-negative)`),
+    negative: axisGizmo.querySelector(`circle.${axis.className}.axis-negative`),
     label: labels.find((label) => label.textContent.trim() === axis.name),
   }));
+  const markers = [];
+  axes.forEach((axis) => {
+    axis.positiveGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    axis.negativeGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    axis.negativeGroup.classList.add("axis-negative-marker");
+    axis.positiveGroup.append(axis.endpoint, axis.label);
+    axis.negativeGroup.append(axis.negative);
+    markers.push({ group: axis.positiveGroup, depth: 0 }, { group: axis.negativeGroup, depth: 0 });
+  });
   const origin = { x: 44, y: 56 };
   const axisLength = 47;
   const defaultRoll = radians(40);
@@ -254,9 +264,20 @@ if (hero && axisGizmo) {
       axis.line.setAttribute("d", `M${origin.x} ${origin.y}L${x} ${y}`);
       axis.endpoint.setAttribute("cx", x);
       axis.endpoint.setAttribute("cy", y);
+      axis.negative.setAttribute("cx", (origin.x - rotated[0] * axisLength).toFixed(3));
+      axis.negative.setAttribute("cy", (origin.y + rotated[1] * axisLength).toFixed(3));
+      markers.find((marker) => marker.group === axis.positiveGroup).depth = rotated[2];
+      markers.find((marker) => marker.group === axis.negativeGroup).depth = -rotated[2];
       axis.label.setAttribute("x", x);
       axis.label.setAttribute("y", (Number(y) + 4).toFixed(3));
     });
+    // Draw outlined endpoints behind the solid axis lines, filled endpoints and labels.
+    markers.sort((a, b) => a.depth - b.depth);
+    markers.filter((marker) => marker.group.classList.contains("axis-negative-marker"))
+      .forEach((marker) => axisGizmo.append(marker.group));
+    axes.forEach((axis) => axisGizmo.append(axis.line));
+    markers.filter((marker) => !marker.group.classList.contains("axis-negative-marker"))
+      .forEach((marker) => axisGizmo.append(marker.group));
   };
   const animate = (time) => {
     const delta = lastTime ? Math.min(time - lastTime, 64) : 16;

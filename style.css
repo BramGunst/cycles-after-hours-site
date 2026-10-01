@@ -506,6 +506,7 @@ code { font-size: 0.875em; overflow-wrap: anywhere; }
 .axis-x { stroke: var(--axis-x); fill: var(--axis-x); }
 .axis-y { stroke: var(--axis-y); fill: var(--axis-y); }
 .axis-z { stroke: var(--axis-z); fill: var(--axis-z); }
+.axis-gizmo .axis-negative { stroke-width: 1.5; stroke-opacity: 0.7; fill-opacity: 0.12; }
 .axis-gizmo text { fill: #181818; font: 700 12px system-ui, sans-serif; text-anchor: middle; }
 footer {
   position: relative;
