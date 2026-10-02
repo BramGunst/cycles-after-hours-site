@@ -543,9 +543,9 @@ footer::before {
   main > section { margin-bottom: var(--space-7); }
 }
 @media (max-width: 37.5rem) {
-  :root { --nav-height: 6.5rem; }
+  :root { --nav-height: 3.5rem; }
   .nav-inner { flex-direction: column; align-items: center; padding-block: 0; }
-  .site-nav .site-brand { height: 3rem; min-height: 3rem; padding: 0 0.75rem; }
+  .site-nav .site-brand { display: none; }
   .site-nav-links { height: 3.5rem; gap: 0.25rem; }
   .site-nav-links > a, .site-nav button { padding-inline: 1rem; }
   .dropdown-menu { right: 0; width: 11.25rem; }
