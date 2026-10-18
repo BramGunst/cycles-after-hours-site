@@ -64,7 +64,7 @@
       .filter(Boolean).forEach((text) => list.append(element("li", "", text)));
     fragment.append(list);
     const primary = builds[0];
-    if (!feature && primary && checksum(primary)) {
+    if (!feature && !experimental && primary && checksum(primary)) {
       fragment.append(element(experimental ? "h4" : "h3", "", "Checksums"));
       const paragraph = element("p", "", `${platform(primary)} SHA-256: `);
       paragraph.append(element("code", "", checksum(primary)));
