@@ -583,21 +583,17 @@ footer::before {
 
 /* Informational download total below the Experimental title. */
 .download-counter {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
   margin-top: var(--space-4);
-  font-size: 1rem;
+  color: var(--muted-color);
+  font-size: 0.875rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .download-counter[hidden] { display: none; }
 .download-counter-icon {
-  align-self: center;
-  flex: none;
   width: 1rem;
   height: 1rem;
-  color: var(--muted-color);
+  margin-inline: var(--space-1);
+  vertical-align: text-bottom;
 }
-.download-counter-label { color: var(--muted-color); font-size: 0.875rem; }
 .page-header--downloads:has(.download-counter:not([hidden])) + main { padding-top: var(--space-7); }
