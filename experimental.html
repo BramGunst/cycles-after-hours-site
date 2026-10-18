@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experimental - Cycles After Hours</title>
+  <meta name="description" content="Download published Cycles After Hours builds and follow upcoming experiments.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="site-brand" href="index.html">Cycles After Hours</a>
+      <div class="site-nav-links">
+        <a href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <button type="button" aria-expanded="false" aria-controls="project-menu">Project</button>
+          <div class="dropdown-menu" id="project-menu">
+            <a href="project.html">Project Details</a>
+            <a data-release-notes href="https://github.com/BramGunst/cycles-after-hours/releases/latest" target="_blank" rel="noopener noreferrer">Release Notes</a>
+            <a href="https://github.com/BramGunst/cycles-after-hours" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          </div>
+        </div>
+        <a href="experimental.html" aria-current="page">Experimental</a>
+        <div class="nav-dropdown">
+          <button type="button" aria-expanded="false" aria-controls="contact-menu">Contact</button>
+          <div class="dropdown-menu" id="contact-menu">
+            <a href="mailto:bram.gunst@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/bram-gunst/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/bramgunst/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.youtube.com/@bram_gunst" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <header class="page-header page-header--title-only">
+    <h1>Experimental</h1>
+  </header>
+  <main id="main-content" class="experimental-page">
+    <section class="project-details" aria-labelledby="development-heading">
+      <h2 id="development-heading">In Development</h2>
+      <article class="details-card">
+        <div class="release-heading">
+          <h3>Geometry Distance</h3>
+          <span class="status-badge status-badge--progress">In Progress</span>
+        </div>
+        <p>An experimental distance shader for Cycles. Still in development.</p>
+      </article>
+      <div data-prereleases hidden></div>
+    </section>
+    <section class="project-details" aria-labelledby="feature-builds-heading">
+      <h2 id="feature-builds-heading">Individual Builds</h2>
+      <div class="feature-builds">
+        <div class="feature-builds" data-feature-builds>
+          <a href="https://github.com/BramGunst/cycles-after-hours/releases">View individual builds</a>
+        </div>
+        <article class="details-card" id="geometry-distance-build">
+          <div class="release-heading">
+            <h3>Geometry Distance</h3>
+          </div>
+          <ul>
+            <li>Blender 5.2.2 LTS</li>
+            <li>Windows x64</li>
+            <li>Version v0.1.0</li>
+            <li>Cycles CPU, CUDA and OptiX</li>
+            <li>Released 18 October 2026</li>
+          </ul>
+          <div class="build-actions">
+            <a class="button download-button" href="https://github.com/BramGunst/cycles-after-hours-site/releases/download/individual-geometry-distance-v0.1.0/Cycles-After-Hours_Blender-5.2.2_Geometry-Distance-v0.1.0-Windows-x64.zip">Download v0.1.0</a>
+            <a class="button" href="https://github.com/BramGunst/cycles-after-hours-site/releases/download/individual-geometry-distance-v0.1.0/Cycles-After-Hours_Blender-5.2.2_Geometry-Distance-v0.1.0-Source.tar.xz">Source Code</a>
+            <a class="button" href="https://github.com/BramGunst/cycles-after-hours-site/releases/tag/individual-geometry-distance-v0.1.0">Release Notes</a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="project-details" id="available-builds" aria-labelledby="latest-build-heading">
+      <h2 id="latest-build-heading">Latest Build</h2>
+      <div class="details-card" data-build-card="experimental">
+        <a class="button download-button" href="https://github.com/BramGunst/cycles-after-hours/releases/latest">View downloads</a>
+      </div>
+      <p class="release-sync-note" data-release-status aria-live="polite"></p>
+    </section>
+    <noscript><p>JavaScript is disabled. <a href="https://github.com/BramGunst/cycles-after-hours/releases/latest">Open the latest published release</a> for download assets, compatibility details and checksums.</p></noscript>
+  </main>
+  <footer>
+    <p>Cycles After Hours is an unofficial Blender/Cycles modification and is not affiliated with the Blender Foundation.</p>
+    <nav aria-label="Footer links">
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </footer>
+  <script src="script.js" defer></script>
+  <script src="release-data.js" defer></script>
+  <script src="releases.js" defer></script>
+</body>
+</html>

@@ -505,7 +505,7 @@ main > section { margin-bottom: var(--space-8); }
 .supported-features li { padding: 0.875rem 1rem; background: var(--ui-editor); }
 .details-card, .source-details, .issue-help { padding: var(--space-5); border: 1px solid var(--ui-border); border-radius: 0.375rem; background: var(--ui-editor); }
 .details-card h2, .source-details h2, .issue-help h2 { margin: 0 0 var(--space-4); font-size: 1.375rem; }
-.details-card h3 { margin-top: 1.5rem; font-size: 1rem; }
+.details-card h3, .details-card h4 { margin-top: 1.5rem; font-size: 1rem; }
 code { font-size: 0.875em; overflow-wrap: anywhere; }
 .toggle-screenshot { border: 1px solid var(--ui-border); border-radius: 0.375rem; }
 .hero-meta { padding: 0.375rem 0.75rem; border: 1px solid #ffffff40; border-radius: 4px; background: #ffffff12; color: #fff; }
@@ -559,4 +559,24 @@ footer::before {
 }
 @media (prefers-reduced-motion: reduce) {
   .site-nav { transition: transform 80ms linear; }
+}
+
+/* Release status and headings within the existing Project Details cards. */
+.release-heading { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-4); }
+.release-heading h2, .details-card .release-heading h3 { margin: 0; }
+.details-card .release-heading h3 { font-size: 1.375rem; }
+.experimental-page > section + section { border-top: 1px solid var(--ui-border); padding-top: var(--space-7); }
+.feature-builds { display: grid; gap: var(--space-6); }
+.experimental-page > section > h2 { margin: 0; }
+.status-badge { display: inline-flex; flex: 0 0 auto; padding: 0.25rem 0.625rem; border: 1px solid var(--ui-border); border-radius: 0.3125rem; background: var(--ui-control); color: var(--muted-color); font-size: 0.75rem; white-space: nowrap; }
+/* GitHub Primer's light-theme success green. */
+.status-badge--latest { color: #1a7f37; border-color: currentColor; background: transparent; }
+.status-badge--progress { color: #77551e; border-color: #e4d5b8; background: #faf5eb; }
+.status-badge--experimental { color: #66518d; border-color: #dcd1ec; background: #f4f0fa; }
+.release-sync-note { margin: 0; max-width: none; color: var(--muted-color); font-size: 0.8125rem; }
+.project-details > .release-sync-note { margin-top: calc(-1 * var(--space-4)); }
+.prerelease-card + .prerelease-card { margin-top: var(--space-6); }
+@media (max-width: 37.5rem) {
+  .site-nav-links { width: 100%; justify-content: center; gap: 0; }
+  .site-nav-links > a, .site-nav button { padding-inline: clamp(0.5rem, 2.3vw, 1rem); }
 }

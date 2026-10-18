@@ -341,3 +341,4 @@ if (hero && axisGizmo) {
   reducedMotionQuery.addEventListener("change", resetPreference);
   render();
 }
+
