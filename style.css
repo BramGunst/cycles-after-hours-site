@@ -597,3 +597,9 @@ footer::before {
   vertical-align: text-bottom;
 }
 .page-header--downloads:has(.download-counter:not([hidden])) + main { padding-top: var(--space-7); }
+
+/* Muted warm surfaces for the two In Development cards. */
+.experimental-page .development-card { background: #f7e5e1; border-color: #d6aaa0; }
+.status-badge--alpha { color: #7d453a; border-color: #c78f82; background: #edcdc5; }
+.button.example-button { min-height: 3rem; border-color: #b87365; background: #fff9f6; color: #8e4438; font-weight: 600; }
+.button.example-button:hover { border-color: #9b5648; background: #f4d7cf; color: #783a30; }
