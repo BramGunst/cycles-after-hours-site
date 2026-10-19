@@ -1,13 +1,13 @@
-/* Global binary download totals are independent of official release selection. */
+/* Count every published build across both repositories, including individual builds and prereleases. */
 (() => {
   "use strict";
   const counter = document.querySelector("[data-download-counter]");
   if (!counter) return;
   const number = counter.querySelector("[data-download-total]");
   const repositories = ["BramGunst/cycles-after-hours", "BramGunst/cycles-after-hours-site"];
-  const cacheKey = "cah-downloads-v1";
-  const retryKey = "cah-downloads-retry-after";
-  const cooldown = 15 * 60 * 1000;
+  const cacheKey = "cah-downloads-v2";
+  const retryKey = "cah-downloads-v2-retry-after";
+  const cooldown = 5 * 60 * 1000;
   const integer = (value) => Number.isSafeInteger(value) && value >= 0;
   const auxiliary = /(?:^|[-_.])(?:source|src|checksums?|sha\d+|provenance|docs?|documentation|licenses?|patches?|symbols?|debug|pdb|dependencies|deps|sdk|tests?)(?:[-_.]|$)/i;
   const packageFile = /\.(?:zip|7z|tar\.(?:xz|gz|bz2|zst)|dmg|pkg|exe|msi|appimage)$/i;
@@ -60,8 +60,13 @@
   }
 
   function show(snapshot) {
+    const checkedAt = Date.parse(snapshot?.checkedAt);
+    if (!Number.isFinite(checkedAt)) throw new Error("Invalid download timestamp");
     number.textContent = new Intl.NumberFormat("en-GB").format(totalFor(snapshot));
+    counter.title = "Build downloads across all official, individual and experimental releases. " +
+      `Last checked ${new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" }).format(checkedAt)}.`;
     counter.hidden = false;
+    return checkedAt;
   }
 
   async function allPages(endpoint) {
@@ -99,29 +104,34 @@
   async function loadRepository(name) {
     const endpoint = `https://api.github.com/repos/${name}/releases`;
     const releases = await allPages(endpoint);
-    const published = [];
-    for (const release of releases) {
-      if (typeof release.draft !== "boolean") throw new Error("Invalid release");
-      if (release.draft) continue;
+    if (releases.some((release) => typeof release.draft !== "boolean")) throw new Error("Invalid release");
+    const published = await Promise.all(releases.filter((release) => !release.draft).map(async (release) => {
       // Fetch the paginated asset endpoint too, rather than assume embedded assets are complete.
       const assets = await allPages(`${endpoint}/${release.id}/assets`);
-      published.push({ id: release.id, draft: false, prerelease: release.prerelease,
+      return { id: release.id, draft: false, prerelease: release.prerelease,
         published_at: release.published_at, assets: assets.map((asset) => ({
           id: asset.id, name: asset.name, state: asset.state,
           download_count: asset.download_count, browser_download_url: asset.browser_download_url,
-        })) });
-    }
+        })) };
+    }));
     return { name, releases: published };
   }
 
+  let verifiedAt = -Infinity;
+  let cachedAt = -Infinity;
   try {
     const cached = JSON.parse(localStorage.getItem(cacheKey));
     const age = Date.now() - Date.parse(cached?.checkedAt);
-    if (age >= 0 && age < cooldown) {
-      show(cached);
-      return;
+    if (age >= 0) {
+      cachedAt = show(cached);
+      verifiedAt = cachedAt;
     }
   } catch { /* Invalid or unavailable storage must not affect release cards. */ }
+  try {
+    const bundled = window.CAH_DOWNLOAD_SNAPSHOT;
+    if (Date.parse(bundled?.checkedAt) > verifiedAt) verifiedAt = show(bundled);
+  } catch { /* A missing saved snapshot must not prevent a live refresh. */ }
+  if (Number.isFinite(cachedAt) && cachedAt === verifiedAt && Date.now() - cachedAt < cooldown) return;
   try {
     const retryAfter = Number(localStorage.getItem(retryKey));
     if (Number.isFinite(retryAfter) && retryAfter > Date.now() && retryAfter <= Date.now() + cooldown) return;
@@ -131,13 +141,13 @@
     try {
       const data = await Promise.all(repositories.map(loadRepository));
       const snapshot = { schema: 1, complete: true, checkedAt: new Date().toISOString(), repositories: data };
-      show(snapshot);
+      verifiedAt = show(snapshot);
       try {
         localStorage.setItem(cacheKey, JSON.stringify(snapshot));
         localStorage.setItem(retryKey, "0");
       } catch { /* The verified live total works without persistent storage. */ }
     } catch {
-      counter.hidden = true;
+      counter.hidden = !Number.isFinite(verifiedAt);
       try { localStorage.setItem(retryKey, String(Date.now() + cooldown)); } catch { /* Optional backoff. */ }
     }
   })();
