@@ -5,8 +5,8 @@
   if (!counter) return;
   const number = counter.querySelector("[data-download-total]");
   const repositories = ["BramGunst/cycles-after-hours", "BramGunst/cycles-after-hours-site"];
-  const cacheKey = "cah-downloads-v2";
-  const retryKey = "cah-downloads-v2-retry-after";
+  const cacheKey = "cah-downloads-v3";
+  const retryKey = "cah-downloads-v3-retry-after";
   const cooldown = 5 * 60 * 1000;
   const integer = (value) => Number.isSafeInteger(value) && value >= 0;
   const auxiliary = /(?:^|[-_.])(?:source|src|checksums?|sha\d+|provenance|docs?|documentation|licenses?|patches?|symbols?|debug|pdb|dependencies|deps|sdk|tests?)(?:[-_.]|$)/i;

@@ -26,7 +26,7 @@
     /\.(?:zip|7z|tar\.(?:xz|gz|bz2|zst)|dmg|pkg|exe|msi|appimage)$/i.test(asset.name));
   const version = (release) => release.tag_name.match(/v\d[\w.+-]*$/)?.[0] || release.tag_name;
   const title = (release) => (release.name || release.tag_name)
-    .replace(/^Cycles After Hours\s*[-–:]\s*/i, "").replace(/\s+v\d[\w.+-]*$/, "");
+    .replace(/^Cycles After Hours\s*[-\u2013:]\s*/i, "").replace(/\s+v\d[\w.+-]*$/, "");
   const date = (value) => new Intl.DateTimeFormat("en-GB", {
     day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
   }).format(new Date(value));
@@ -131,7 +131,7 @@
       prereleases.forEach((item) => {
         const card = element("article", "details-card prerelease-card");
         card.append(element("span", "status-badge status-badge--experimental", "Experimental"),
-          element("h3", "", `${title(item)} ${version(item)}`), element("p", "", `Prerelease · ${date(item.published_at)}`));
+          element("h3", "", `${title(item)} ${version(item)}`), element("p", "", `Prerelease - ${date(item.published_at)}`));
         const actions = element("div", "build-actions");
         buildsFor(item).forEach((asset) => actions.append(link(`Download for ${platform(asset)}`, asset.browser_download_url, "button")));
         actions.append(link("Release notes", item.html_url, "button"));
